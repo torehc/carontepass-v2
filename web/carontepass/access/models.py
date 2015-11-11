@@ -49,8 +49,8 @@ class Message(models.Model):
 
     text = models.CharField(max_length=512)
     user = models.ForeignKey('User')
-    ts_send = models.DateTimeField(auto_now=True, auto_now_add=False)
-    ts_received = models.DateTimeField(auto_now=True, auto_now_add=False)
+    ts_send = models.DateTimeField()
+    ts_received = models.DateTimeField()
 
 
 
@@ -60,7 +60,7 @@ class Payment(models.Model):
     year = models.IntegerField()
     month = models.IntegerField()
     user = models.ForeignKey('User')
-    f_payment = models.DateTimeField(auto_now=True, auto_now_add=False)
+    f_payment = models.DateTimeField()
     amount = models.FloatField(default=0.0)
     
     def __str__(self):
@@ -98,7 +98,7 @@ class Log(models.Model):
     __tablename__ = 'cp_log'
 
     user = models.ForeignKey('User')
-    ts_input = models.DateTimeField(auto_now=True, auto_now_add=False)
-    ts_output = models.DateTimeField(auto_now=True, auto_now_add=False)
+    ts_input = models.DateTimeField()
+    ts_output = models.DateTimeField()
     
     

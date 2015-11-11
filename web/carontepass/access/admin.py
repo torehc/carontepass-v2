@@ -21,12 +21,17 @@ class PaymentAdmin(admin.ModelAdmin):
   list_display = ('user', 'month', 'year', 'f_payment', 'amount') 
   search_fields = ('user', 'month', 'year') 
   list_filter = ('month',)
+  
+class MessageAdmin(admin.ModelAdmin): 
+  list_display = ('user', 'text', 'ts_send', 'ts_received') 
+  search_fields = ('user', 'text') 
+  list_filter = ('ts_send',)
 
 
 # Register your models here.
 admin.site.register(Group)
 admin.site.register(User, UserAdmin)
-admin.site.register(Message)
+admin.site.register(Message, MessageAdmin)
 admin.site.register(Payment, PaymentAdmin)
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(Log, LogAdmin)
