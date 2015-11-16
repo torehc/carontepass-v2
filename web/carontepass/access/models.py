@@ -63,14 +63,6 @@ class Payment(models.Model):
     f_payment = models.DateTimeField()
     amount = models.FloatField(default=0.0)
     
-    def __str__(self):
-        return u'{} {}'.format(
-            self.user.name, 
-            self.user.last_name,
-            self.month,
-            self.year,
-            self.amount,
-            )
 
 class Device(models.Model):
     __tablename__ = 'cp_device'

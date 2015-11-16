@@ -15,7 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from rest_framework.routers import DefaultRouter
+from access.viewsets import UserViewSet, DeviceViewSet
+from access.views import DeviceIDList
+
+router = DefaultRouter()
+router.register(r'user', UserViewSet)
+router.register(r'device', DeviceViewSet)
+
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/1/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/1/device/(?P<code>.+)$', DeviceIDList.as_view()),
 ]
