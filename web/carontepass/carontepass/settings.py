@@ -113,3 +113,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
+
+VALUE_PAYMENT_TRUE = 10

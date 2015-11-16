@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from rest_framework import generics
 from .models import User, Device
-from .serializers import UserSerializer, DeviceSerializer
+from .serializers import UserSerializer, DeviceResultSerializer
 
 # Create your views here.
 
 class DeviceIDList(generics.ListAPIView):
 
-    serializer_class = DeviceSerializer
+    serializer_class = DeviceResultSerializer
 
     def get_queryset(self, **kwargs):
 
