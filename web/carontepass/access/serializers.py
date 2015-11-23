@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from carontepass.settings import VALUE_PAYMENT_TRUE
-from .models import User, Device, Payment
+from .models import User, Device, Payment, Log
 import datetime
 
 
@@ -25,7 +25,12 @@ class DeviceResultSerializer(serializers.ModelSerializer):
         
         if Payment.objects.filter(user=Device.user, month=month_actual): 
             if  Payment.objects.filter(user=Device.user, month=month_actual)[0].amount >= VALUE_PAYMENT_TRUE:
+                
+                Log.checkentryLog(Device)
+                
                 return True;
+            
+        
     
     class Meta:
             model = Device

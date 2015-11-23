@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.db import models
+import datetime
+
 
 # Create your models here.
 class Group(models.Model):
@@ -63,6 +65,9 @@ class Payment(models.Model):
     f_payment = models.DateTimeField()
     amount = models.FloatField(default=0.0)
     
+    def __str__(self):
+        return '{}: {} - {}'.format(self.user, self.amount, self.f_payment)
+        
 
 class Device(models.Model):
     __tablename__ = 'cp_device'
@@ -83,7 +88,7 @@ class Device(models.Model):
     code = models.CharField(max_length=64, blank=False)
     
     def __str__(self):
-        return 'Device {}:{}'.format(self.kind, self.code)
+        return 'Device {}:{} - {}'.format(self.user, self.kind, self.code)
 
 
 class Log(models.Model):
@@ -93,4 +98,30 @@ class Log(models.Model):
     ts_input = models.DateTimeField()
     ts_output = models.DateTimeField()
     
+    def __str__(self):
+        return 'Log {}: {} - {}'.format(self.user, self.ts_input, self.ts_output)
     
+    @staticmethod   
+    def checkentryLog(Device):
+
+        date = datetime.datetime.now()
+
+        log_obj = Log.objects.filter(user=Device.user).last()
+
+        if not log_obj:
+
+            log_create = Log.objects.create(user=Device.user, ts_input=date, ts_output=date)
+            #return '{}: Go In'.format(device_obj.user)
+            
+        elif(log_obj.ts_input.strftime('%d/%m/%y-%H:%M') == log_obj.ts_output.strftime('%d/%m/%y-%H:%M')):
+                    
+            log_obj.ts_output = datetime.datetime.now()
+            log_obj.save()
+            #return '{}: Go Out'.format(device_obj.user)
+
+        else:
+            log_create = Log.objects.create(user=Device.user, ts_input=date, ts_output=date)    
+            #return '{}: Go In'.format(device_obj.user)
+            
+            
+            
