@@ -13,9 +13,9 @@ class DeviceAdmin(admin.ModelAdmin):
   list_filter = ('kind',) 
   
 class LogAdmin(admin.ModelAdmin): 
-  list_display = ('user', 'ts_input', 'ts_output') 
+  list_display = ('user', 'ts_input', 'ts_output', 'user_in') 
   search_fields = ('user', 'ts_input', 'ts_output')
-  list_filter = ('ts_input',)
+  list_filter = ('ts_input', 'user_in')
 
 class PaymentAdmin(admin.ModelAdmin): 
   list_display = ('user', 'month', 'year', 'f_payment', 'amount') 

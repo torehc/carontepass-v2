@@ -29,10 +29,9 @@ class DeviceResultSerializer(serializers.ModelSerializer):
                 Log.checkentryLog(Device)
                 
                 return True;
-            
-        
-    
+                
     class Meta:
             model = Device
             fields = ('id', 'user', 'kind', 'code', 'result')
             
+    

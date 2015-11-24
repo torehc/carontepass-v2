@@ -97,6 +97,7 @@ class Log(models.Model):
     user = models.ForeignKey('User')
     ts_input = models.DateTimeField()
     ts_output = models.DateTimeField()
+    user_in = models.BooleanField(default=False)
     
     def __str__(self):
         return 'Log {}: {} - {}'.format(self.user, self.ts_input, self.ts_output)
@@ -110,18 +111,30 @@ class Log(models.Model):
 
         if not log_obj:
 
-            log_create = Log.objects.create(user=Device.user, ts_input=date, ts_output=date)
+            log_create = Log.objects.create(user=Device.user, ts_input=date, ts_output=date, user_in=True)
             #return '{}: Go In'.format(device_obj.user)
             
         elif(log_obj.ts_input.strftime('%d/%m/%y-%H:%M') == log_obj.ts_output.strftime('%d/%m/%y-%H:%M')):
                     
             log_obj.ts_output = datetime.datetime.now()
+            log_obj.user_in = False
             log_obj.save()
             #return '{}: Go Out'.format(device_obj.user)
 
         else:
-            log_create = Log.objects.create(user=Device.user, ts_input=date, ts_output=date)    
+            log_create = Log.objects.create(user=Device.user, ts_input=date, ts_output=date, user_in=True)    
             #return '{}: Go In'.format(device_obj.user)
+     
+       
+    @staticmethod   
+    def listUsersInside(self):
+        
+        logs_in = Log.objects.filter(user_in=True).all()
+        for i in range(len(logs_in)):
+            print logs_in[i].user
+            
+            
+            
             
             
             
