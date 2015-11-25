@@ -108,6 +108,8 @@ class Log(models.Model):
         date = datetime.datetime.now()
 
         log_obj = Log.objects.filter(user=Device.user).last()
+        
+        #log_user_in_initial = len(Log.objects.filter(user_in=True).all())
 
         if not log_obj:
 
@@ -125,14 +127,24 @@ class Log(models.Model):
             log_create = Log.objects.create(user=Device.user, ts_input=date, ts_output=date, user_in=True)    
             #return '{}: Go In'.format(device_obj.user)
      
-       
+        """
+        log_user_in_end = len(Log.objects.filter(user_in=True).all())
+        
+        if(log_user_in_initial == 0 and log_user_in_end == 1):
+            print "Site Open"
+        elif(log_user_in_initial == 1 and log_user_in_end == 0):
+            print "Site Closed"
+        """    
+            
     @staticmethod   
     def listUsersInside(self):
         
         logs_in = Log.objects.filter(user_in=True).all()
+        return logs_in
+        """
         for i in range(len(logs_in)):
-            print logs_in[i].user
-            
+            return logs_in[i].user
+        """    
             
             
             
