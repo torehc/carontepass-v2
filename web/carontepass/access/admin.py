@@ -23,9 +23,8 @@ class PaymentAdmin(admin.ModelAdmin):
   list_filter = ('month',)
   
 class MessageAdmin(admin.ModelAdmin): 
-  list_display = ('user', 'text', 'ts_send', 'ts_received') 
-  search_fields = ('user', 'text') 
-  list_filter = ('ts_send',)
+  list_display = ('rol', 'text')
+  list_filter = ('rol',)
   
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('name_group', 'users_numbers')
@@ -40,7 +39,7 @@ class GroupAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Group, GroupAdmin)
 admin.site.register(User, UserAdmin)
-admin.site.register(Message)
+admin.site.register(Message, MessageAdmin)
 admin.site.register(Payment, PaymentAdmin)
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(Log, LogAdmin)

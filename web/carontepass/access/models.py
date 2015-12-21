@@ -48,12 +48,26 @@ class User(models.Model):
 
 class Message(models.Model):
     __tablename__ = 'cp_message'
-
+    
+    INPUT = 'Input'
+    OUTPUT = 'Output'
+    CAUTION = 'Caution'
+    INFO = 'Info'
+    
+    ROL_CHOICES = (
+        (INPUT, 'Input'),
+        (OUTPUT, 'Output'),
+        (CAUTION, 'Caution'),
+        (INFO, 'Info'),
+    )
+    
     text = models.CharField(max_length=512)
-    user = models.ForeignKey('User')
-    ts_send = models.DateTimeField()
-    ts_received = models.DateTimeField()
-
+    
+    rol = models.CharField(max_length=7,
+                                      choices=ROL_CHOICES,
+                                      default=INFO,
+                                      blank=False,
+                                      )
 
 
 class Payment(models.Model):
@@ -109,7 +123,7 @@ class Log(models.Model):
 
         log_obj = Log.objects.filter(user=Device.user).last()
         
-        #log_user_in_initial = len(Log.objects.filter(user_in=True).all())
+        log_user_in_initial = len(Log.objects.filter(user_in=True).all())
 
         if not log_obj:
 
@@ -127,14 +141,13 @@ class Log(models.Model):
             log_create = Log.objects.create(user=Device.user, ts_input=date, ts_output=date, user_in=True)    
             #return '{}: Go In'.format(device_obj.user)
      
-        """
         log_user_in_end = len(Log.objects.filter(user_in=True).all())
         
         if(log_user_in_initial == 0 and log_user_in_end == 1):
             print "Site Open"
         elif(log_user_in_initial == 1 and log_user_in_end == 0):
             print "Site Closed"
-        """    
+           
             
     @staticmethod   
     def listUsersInside(self):
