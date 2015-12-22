@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.db import models
 import datetime
+from telegram_group import send_group_msg
 
 
 # Create your models here.
@@ -143,10 +144,12 @@ class Log(models.Model):
      
         log_user_in_end = len(Log.objects.filter(user_in=True).all())
         
+        
         if(log_user_in_initial == 0 and log_user_in_end == 1):
-            print "Site Open"
+            send_group_msg("Site Open")
+            
         elif(log_user_in_initial == 1 and log_user_in_end == 0):
-            print "Site Closed"
+            send_group_msg("Site Closed")
            
             
     @staticmethod   
