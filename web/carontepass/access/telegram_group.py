@@ -7,14 +7,22 @@ import telebot
 import urllib3
 urllib3.disable_warnings()
 
-#Token of your bot
-TOKEN = 'xxxxxx'
+from carontepass.settings import TOKEN_BOT
 
 #Receptor chat id
-IDchatReceiver = 'xxxxxxx'
+IDchatReceiver = 'XXXXXX'
 
-tb = telebot.TeleBot(TOKEN)
+tb = telebot.TeleBot(TOKEN_BOT)
 
-def send_group_msg(message):
+
+def send_simple_msg(message):
   
-  tb.send_message(IDchatReceive, message)
+    tb.send_message(IDchatReceiver, message)
+
+  
+def send_group_msg(SiteOpen, user_name):
+  
+    if SiteOpen == True:
+      tb.send_message(IDchatReceiver, "Site Open ("+user_name+")" )
+    else:
+      tb.send_message(IDchatReceiver, "Site Closed ("+user_name+")" )
