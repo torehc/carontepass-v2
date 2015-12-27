@@ -3,3 +3,4 @@ django-debug-toolbar
 djangorestframework
 urllib3
 pyTelegramBotAPI
+django-admin-bootstrapped
