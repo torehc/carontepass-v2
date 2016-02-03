@@ -89,9 +89,11 @@ class Device(models.Model):
     
     NFC = 'nfc'
     MAC = 'mac'
+    TAG = 'tag'
     DEVICE_CHOICES = (
         (NFC, 'NFC'),
         (MAC, 'MAC'),
+        (TAG, 'TAG'),
     )
 
     user = models.ForeignKey('User')
@@ -104,6 +106,14 @@ class Device(models.Model):
     
     def __str__(self):
         return 'Device {}:{} - {}'.format(self.user, self.kind, self.code)
+        
+    @staticmethod   
+    def check_exists_device(code_id):
+        #If there is no device code creates a new one.
+        #With this you have saved the new devices and then assign them to your user.
+        if not Device.objects.filter(code=code_id):
+            caronte = User.objects.filter(name="Caronte").first()
+            device_create = Device.objects.create(user=caronte, kind='tag', code=code_id)
 
 
 class Log(models.Model):

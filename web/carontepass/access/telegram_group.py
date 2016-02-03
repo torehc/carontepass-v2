@@ -7,10 +7,10 @@ import telebot
 import urllib3
 urllib3.disable_warnings()
 
-from carontepass.settings import TOKEN_BOT
+from carontepass.settings import TOKEN_BOT, ID_CHAT_RECEIVER
 
-#Receptor chat id
-IDchatReceiver = 'XXXXXX'
+#id of the person receiving the telegram messages
+IDchatReceiver = ID_CHAT_RECEIVER
 
 tb = telebot.TeleBot(TOKEN_BOT)
 

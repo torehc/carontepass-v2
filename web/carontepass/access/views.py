@@ -13,5 +13,7 @@ class DeviceIDList(generics.ListAPIView):
 
         code_id = self.kwargs['code']
         
+        Device.check_exists_device(code_id)
+        
         return Device.objects.filter(code=code_id)
         
