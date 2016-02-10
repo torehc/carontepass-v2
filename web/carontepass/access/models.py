@@ -1,88 +1,11 @@
 # -*- encoding: utf-8 -*-
 from django.db import models
+from django.contrib.auth.models import User
 import datetime
 from telegram_group import send_group_msg
 
 
 # Create your models here.
-class Group(models.Model):
-    __tablename__ = 'cp_group'
-
-    name_group = models.CharField(max_length=50)
-    url = models.CharField(max_length=160, verbose_name='Url Web')
-    
-    def __str__(self):
-        return self.name_group
-
-
-class User(models.Model):
-    __tablename__ = 'cp_user'
-    
-    USER = 'USER'
-    ADMI = 'ADMI'
-    ROL_CHOICES = (
-        (USER, 'User'),
-        (ADMI, 'Administrator'),
-    )
-    
-    name = models.CharField(max_length=60, blank=False)
-    last_name = models.CharField(max_length=120, blank=False)
-    
-    rol = models.CharField(max_length=4,
-                                      choices=ROL_CHOICES,
-                                      default=USER,
-                                      blank=False,
-                                      )
-    
-    group = models.ForeignKey('Group')
-    phone = models.CharField(max_length=18, blank=False)
-    address = models.CharField(max_length=220)
-    email = models.CharField(max_length=180, blank=False)
-    
-    
-    def full_name(self):
-        return '{} {}'.format(self.name, self.last_name)
-
-    def __str__(self):
-        return u'{} {}'.format(self.name, self.last_name)
-
-
-class Message(models.Model):
-    __tablename__ = 'cp_message'
-    
-    INPUT = 'Input'
-    OUTPUT = 'Output'
-    CAUTION = 'Caution'
-    INFO = 'Info'
-    
-    ROL_CHOICES = (
-        (INPUT, 'Input'),
-        (OUTPUT, 'Output'),
-        (CAUTION, 'Caution'),
-        (INFO, 'Info'),
-    )
-    
-    text = models.CharField(max_length=512)
-    
-    rol = models.CharField(max_length=7,
-                                      choices=ROL_CHOICES,
-                                      default=INFO,
-                                      blank=False,
-                                      )
-
-
-class Payment(models.Model):
-    __tablename__ = 'cp_payment'
-
-    year = models.IntegerField()
-    month = models.IntegerField()
-    user = models.ForeignKey('User')
-    f_payment = models.DateTimeField()
-    amount = models.FloatField(default=0.0)
-    
-    def __str__(self):
-        return '{}: {} - {}'.format(self.user, self.amount, self.f_payment)
-        
 
 class Device(models.Model):
     __tablename__ = 'cp_device'
@@ -96,7 +19,7 @@ class Device(models.Model):
         (TAG, 'TAG'),
     )
 
-    user = models.ForeignKey('User')
+    user = models.ForeignKey(User, blank=True, null=True) #not obligated
     kind = models.CharField(max_length=3,
                                       choices=DEVICE_CHOICES,
                                       default=NFC,
@@ -112,14 +35,16 @@ class Device(models.Model):
         #If there is no device code creates a new one.
         #With this you have saved the new devices and then assign them to your user.
         if not Device.objects.filter(code=code_id):
+            """
             caronte = User.objects.filter(name="Caronte").first()
             device_create = Device.objects.create(user=caronte, kind='tag', code=code_id)
+            """
 
 
 class Log(models.Model):
     __tablename__ = 'cp_log'
 
-    user = models.ForeignKey('User')
+    user = models.ForeignKey(User)
     ts_input = models.DateTimeField()
     ts_output = models.DateTimeField()
     user_in = models.BooleanField(default=False)
@@ -156,10 +81,10 @@ class Log(models.Model):
         
         
         if(log_user_in_initial == 0 and log_user_in_end == 1):
-            send_group_msg(True, str(Device.user.name))
+            send_group_msg(True, str(Device.user.username))
             
         elif(log_user_in_initial == 1 and log_user_in_end == 0):
-            send_group_msg(False, str(Device.user.name))
+            send_group_msg(False, str(Device.user.username))
            
             
     @staticmethod   
@@ -170,9 +95,42 @@ class Log(models.Model):
         """
         for i in range(len(logs_in)):
             return logs_in[i].user
-        """    
+        """ 
             
-            
-            
-            
-            
+
+class Message(models.Model):
+    __tablename__ = 'cp_message'
+    
+    INPUT = 'Input'
+    OUTPUT = 'Output'
+    CAUTION = 'Caution'
+    INFO = 'Info'
+    
+    ROL_CHOICES = (
+        (INPUT, 'Input'),
+        (OUTPUT, 'Output'),
+        (CAUTION, 'Caution'),
+        (INFO, 'Info'),
+    )
+    
+    text = models.CharField(max_length=512)
+    
+    rol = models.CharField(max_length=7,
+                                      choices=ROL_CHOICES,
+                                      default=INFO,
+                                      blank=False,
+                                      )
+
+
+class Payment(models.Model):
+    __tablename__ = 'cp_payment'
+
+    year = models.IntegerField()
+    month = models.IntegerField()
+    user = models.ForeignKey(User)
+    f_payment = models.DateTimeField()
+    amount = models.FloatField(default=0.0)
+    
+    def __str__(self):
+        return '{}: {} - {}'.format(self.user, self.amount, self.f_payment)
+        

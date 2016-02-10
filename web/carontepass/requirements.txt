@@ -4,3 +4,4 @@ djangorestframework
 urllib3
 pyTelegramBotAPI
 django-admin-bootstrapped
+django-extensions

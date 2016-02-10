@@ -1,12 +1,8 @@
 from django.contrib import admin
 
-from access.models import Group, User, Message, Payment, Device, Log
+from access.models import Message, Payment, Device, Log
 
-class UserAdmin(admin.ModelAdmin): 
-  list_display = ('name', 'last_name', 'email', 'rol') 
-  search_fields = ('name', 'last_name', 'email')
-  list_filter = ('rol',) 
-  
+
 class DeviceAdmin(admin.ModelAdmin): 
   list_display = ('kind', 'user', 'code') 
   search_fields = ('user', 'code')
@@ -25,20 +21,9 @@ class PaymentAdmin(admin.ModelAdmin):
 class MessageAdmin(admin.ModelAdmin): 
   list_display = ('rol', 'text')
   list_filter = ('rol',)
-  
-class GroupAdmin(admin.ModelAdmin):
-    list_display = ('name_group', 'users_numbers')
-
-    def users_numbers(self, obj):
-        users = User.objects.filter(group=obj.id).count()
-        return ("%s" % (users))
-        
-    users_numbers.short_description = 'Users'
 
 
 # Register your models here.
-admin.site.register(Group, GroupAdmin)
-admin.site.register(User, UserAdmin)
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Payment, PaymentAdmin)
 admin.site.register(Device, DeviceAdmin)

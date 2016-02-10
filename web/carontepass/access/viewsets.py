@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-
-from .models import User, Device
+from django.contrib.auth.models import User
+from .models import Device
 from .serializers import UserSerializer, DeviceSerializer
 
  

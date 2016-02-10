@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from carontepass.settings import VALUE_PAYMENT_TRUE
-from .models import User, Device, Payment, Log
+from .models import Device, Payment, Log
 import datetime
-
+from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'debug_toolbar',
     'rest_framework',
     'access',
@@ -115,6 +116,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-TOKEN_BOT = 'XXXXXX'
+TOKEN_BOT = 'XXXX'
+ID_CHAT_RECEIVER = 'XXXX'
 
 VALUE_PAYMENT_TRUE = 10

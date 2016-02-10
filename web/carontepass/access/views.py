@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .models import User, Device, Log
+from .models import Device, Log
 from .serializers import DeviceResultSerializer
 
 # Create your views here.
@@ -13,7 +13,7 @@ class DeviceIDList(generics.ListAPIView):
 
         code_id = self.kwargs['code']
         
-        Device.check_exists_device(code_id)
+        #Device.check_exists_device(code_id)
         
         return Device.objects.filter(code=code_id)
         
