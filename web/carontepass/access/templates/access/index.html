@@ -1,0 +1,154 @@
+{% extends "commons/blank.html" %}
+{% load staticfiles %}
+
+{% block site_banner_status %}
+          <div class="row">
+            {% if users_in_count > 0 %}
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>{{ users_in_count }}<sup style="font-size: 20px"> Users</sup></h3>
+                  <p>Site OPEN</p>
+                </div>
+                <div class="icon">
+                  <i class="glyphicon glyphicon-thumbs-up"></i>
+                </div>
+                <a class="small-box-footer" href="#">More info <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            {% else %}
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>0<sup style="font-size: 20px"> Users</sup></h3>
+                  <p>Site CLOSED</p>
+                </div>
+                <div class="icon">
+                  <i class="glyphicon glyphicon-thumbs-down"></i>
+                </div>
+                <a class="small-box-footer" href="#">More info <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            {% endif %}
+            </div>
+            
+{% endblock site_banner_status %}
+
+{% block site_banner_info %}
+         <div class="row">
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>{{ users_count }}</h3>
+                  <p>User Registrations</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <a class="small-box-footer" href="#">More info <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>xx</h3>
+                  <p>User Registrations</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-stats-bars"></i>
+                </div>
+                <a class="small-box-footer" href="#">More info <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+          </div>
+{% endblock site_banner_info %}
+
+{% block box_carousel %}
+         <section class="content">
+          <!-- Default box -->
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Technology Used</h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <!-- Carousel -->
+              <center>
+              <div class="box-body">
+              <div data-ride="carousel" class="carousel slide" id="carousel-example-generic">
+                <ol class="carousel-indicators">
+                  <li class="" data-slide-to="0" data-target="#carousel-example-generic"></li>
+                  <li class="" data-slide-to="1" data-target="#carousel-example-generic"></li>
+                  <li class="active" data-slide-to="2" data-target="#carousel-example-generic"></li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="item">
+                    <img alt="First slide" src="http://placehold.it/900x500/39CCCC/ffffff&amp;text=I+Love+Bootstrap">
+
+                    <div class="carousel-caption">
+                      First Slide
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img alt="Second slide" src="http://placehold.it/900x500/3c8dbc/ffffff&amp;text=I+Love+Bootstrap">
+
+                    <div class="carousel-caption">
+                      Second Slide
+                    </div>
+                  </div>
+                  <div class="item active">
+                    <img alt="Third slide" src="http://placehold.it/900x500/f39c12/ffffff&amp;text=I+Love+Bootstrap">
+
+                    <div class="carousel-caption">
+                      Third Slide
+                    </div>
+                  </div>
+                </div>
+                <a data-slide="prev" href="#carousel-example-generic" class="left carousel-control">
+                  <span class="fa fa-angle-left"></span>
+                </a>
+                <a data-slide="next" href="#carousel-example-generic" class="right carousel-control">
+                  <span class="fa fa-angle-right"></span>
+                </a>
+              </div>
+            </div>
+            </center>
+              <!-- /Carousel -->
+            </div><!-- /.box-body -->
+            <div class="box-footer">
+              Thanks to all who have helped me!
+            </div><!-- /.box-footer-->
+          </div><!-- /.box -->
+         </section><!-- /.content -->
+{% endblock box_carousel %}
+
+{% block page_header %}
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            HOME
+            <small>Access Control</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+          </ol>
+{% endblock page_header %}
+
+{% block user_panel %}
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="{% static 'img/avatar.png' %}" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+              <p>User</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+          </div>
+{% endblock user_panel %}

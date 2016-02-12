@@ -88,14 +88,15 @@ class Log(models.Model):
            
             
     @staticmethod   
-    def listUsersInside(self):
+    def listUsersInside():
         
-        logs_in = Log.objects.filter(user_in=True).all()
-        return logs_in
-        """
-        for i in range(len(logs_in)):
-            return logs_in[i].user
-        """ 
+        return Log.objects.filter(user_in=True).all()
+
+
+    @staticmethod    
+    def listUsersCount():
+
+        return Log.objects.filter(user_in=True).count()
             
 
 class Message(models.Model):

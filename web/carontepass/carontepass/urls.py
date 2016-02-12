@@ -29,4 +29,11 @@ urlpatterns = [
     url(r'^api/1/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/1/device/(?P<code>.+)$', DeviceIDList.as_view()),
+    url(r'^commons/', include('commons.urls')),
+    url(r'^$', 'access.views.login'),
+    url(r'^login$', 'access.views.login'),
+    url(r'^home$', 'access.views.homepage'),
+    #url(r'^profile$', 'access.views.profile'),
+    #url(r'^statistics$', 'access.views.statistics'),
+    #url(r'^logs$', 'access.views.logs'),
 ]
