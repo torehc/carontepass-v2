@@ -3,6 +3,8 @@ from rest_framework import generics
 from .models import Device, Log
 from .serializers import DeviceResultSerializer
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 
@@ -24,5 +26,8 @@ def homepage(request):
     users_in_count = Log.listUsersCount()
     return render(request, 'access/index.html', {'users_count': users_count, 'users_in_count': users_in_count})
     
-def login(request):
-    return render(request, 'access/login.html')
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+    

@@ -147,7 +147,7 @@
               <img src="{% static 'img/avatar.png' %}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p>User</p>
+              <p>{{ user.username }} <a href="{% url 'logout' %}">[logout]</a></p>
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>

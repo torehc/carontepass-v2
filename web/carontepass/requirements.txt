@@ -5,3 +5,4 @@ urllib3
 pyTelegramBotAPI
 django-admin-bootstrapped
 django-extensions
+django-bootstrap3
