@@ -9,9 +9,12 @@ class DeviceAdmin(admin.ModelAdmin):
   list_filter = ('kind',) 
   
 class LogAdmin(admin.ModelAdmin): 
-  list_display = ('user', 'ts_input', 'ts_output', 'user_in') 
+  list_display = ('user', 'ts_input', 'ts_output', 'day', 'user_in') 
   search_fields = ('user', 'ts_input', 'ts_output')
   list_filter = ('ts_input', 'user_in')
+  
+  def day(self, obj):
+    return obj.ts_input.strftime('%A')
 
 class PaymentAdmin(admin.ModelAdmin): 
   list_display = ('user', 'month', 'year', 'f_payment', 'amount') 
