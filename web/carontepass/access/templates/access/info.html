@@ -1,0 +1,46 @@
+{% extends "commons/blank.html" %}
+{% load staticfiles %}
+
+{% block page_header %}
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            User Info
+            <small>Access Control</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+          </ol>
+{% endblock page_header %}
+
+{% block user_panel %}
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="{% static 'img/avatar.png' %}" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+              <p>{{ user.username }} <a href="{% url 'logout' %}">[logout]</a></p>
+              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+          </div>
+{% endblock user_panel %}
+
+
+{% block body %}
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">Username</div>
+      <div class="panel-body">{{ user }}</div>
+  </div>
+  
+  <div class="panel panel-info">
+    <div class="panel-heading">Name</div>
+      <div class="panel-body">{{ user.first_name }} {{ user.last_name }}</div>
+  </div>
+  
+  <div class="panel panel-info">
+    <div class="panel-heading">Email</div>
+      <div class="panel-body">{{ user.email }}</div>
+  </div>
+
+{% endblock body %}

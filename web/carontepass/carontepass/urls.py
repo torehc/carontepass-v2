@@ -17,7 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 from access.viewsets import UserViewSet, DeviceViewSet
-from access.views import DeviceIDList, homepage, logout_view
+from access.views import DeviceIDList, homepage, logout_view, personal_info, device_info
 
 router = DefaultRouter()
 router.register(r'user', UserViewSet)
@@ -31,6 +31,8 @@ urlpatterns = [
     url(r'^api/1/device/(?P<code>.+)$', DeviceIDList.as_view()),
     url(r'^commons/', include('commons.urls')),
     url(r'^accounts/profile/$', homepage, name='homepage'),
+    url(r'^accounts/profile/info$', personal_info , name='personal_info'),
+    url(r'^accounts/profile/device$', device_info , name='device_info'),
     url(
         r'^$',
         'django.contrib.auth.views.login',

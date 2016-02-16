@@ -31,3 +31,21 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
     
+def personal_info(request):
+    return render(request, 'access/info.html')
+
+"""
+def device_info(request):
+    return render(request, 'access/devicelist.html')    
+"""
+def device_info(request):
+    device_list_user = Device.objects.filter(user=User).all()
+    return render(request, 'access/devicelist.html', {'device_list_user': device_list_user})
+    
+    
+    
+    
+    
+    
+    
+    

@@ -34,11 +34,10 @@ class Device(models.Model):
     def check_exists_device(code_id):
         #If there is no device code creates a new one.
         #With this you have saved the new devices and then assign them to your user.
+        
         if not Device.objects.filter(code=code_id):
-            """
-            caronte = User.objects.filter(name="Caronte").first()
+            caronte = User.objects.filter(username="Caronte").first()
             device_create = Device.objects.create(user=caronte, kind='tag', code=code_id)
-            """
 
 
 class Log(models.Model):
