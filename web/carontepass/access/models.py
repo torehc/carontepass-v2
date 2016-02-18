@@ -19,7 +19,7 @@ class Device(models.Model):
         (TAG, 'TAG'),
     )
 
-    user = models.ForeignKey(User, blank=True, null=True) #not obligated
+    user = models.ForeignKey(User)
     kind = models.CharField(max_length=3,
                                       choices=DEVICE_CHOICES,
                                       default=NFC,
@@ -36,7 +36,7 @@ class Device(models.Model):
         #With this you have saved the new devices and then assign them to your user.
         
         if not Device.objects.filter(code=code_id):
-            caronte = User.objects.filter(username="Caronte").first()
+            caronte = User.objects.filter(username="caronte").first()
             device_create = Device.objects.create(user=caronte, kind='tag', code=code_id)
 
 

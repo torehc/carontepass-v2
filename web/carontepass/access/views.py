@@ -7,6 +7,9 @@ from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
+from graphos.renderers import flot
+from graphos.sources.simple import SimpleDataSource
+
 
 # Create your views here.
 
@@ -18,7 +21,7 @@ class DeviceIDList(generics.ListAPIView):
 
         code_id = self.kwargs['code']
         
-        #Device.check_exists_device(code_id)
+        Device.check_exists_device(code_id)
         
         return Device.objects.filter(code=code_id)
         
@@ -46,8 +49,21 @@ def device_info(request):
     device_list_user = Device.objects.filter(user=User).all()
     return render(request, 'access/devicelist.html', {'device_list_user': device_list_user})
     
+
+@login_required(login_url='/')
+def global_charts(request):
     
+    qs = Log.objects.all()
+    week = [qs.filter(ts_input__week_day=i).count() for i in range(6)]
+
+    data =  [
+        ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        week
+    ]
+
+    chart = flot.LineChart(SimpleDataSource(data=data), html_id="line_chart")
     
+    return render(request, 'access/global_charts.html', {'chart': chart } )
     
     
     
