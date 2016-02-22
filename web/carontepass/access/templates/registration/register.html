@@ -1,0 +1,48 @@
+{% extends "commons/login.html" %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block page_header %}
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Create an account
+            <small>Access Control</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+          </ol>
+{% endblock page_header %}
+
+{% block user_panel %}
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="{% static 'img/avatar.png' %}" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+              <p>{{ user.username }} <a href="{% url 'logout' %}">[logout]</a></p>
+              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+          </div>
+{% endblock user_panel %}
+
+{% block body_box %}
+
+{% if user.is_authenticated %}
+  <div class="alert alert-success" role="alert">
+    Hi {{ user }} <a href="{% url 'homepage' %}" class="btn btn-primary" role="button">Your Panel</a>
+  </div> 
+    
+{% else %}
+  <form action="{% url 'register' %}" method="post" class="form">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      {% buttons %}
+          <button type="submit" class="btn btn-primary">
+              Create {% bootstrap_icon "user" %} 
+          </button>
+      {% endbuttons %}
+  </form>
+{% endif %}
+        
+{% endblock body_box %}

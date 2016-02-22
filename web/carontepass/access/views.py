@@ -10,6 +10,10 @@ from django.contrib.auth.decorators import login_required
 from graphos.renderers import flot
 from graphos.sources.simple import SimpleDataSource
 
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render
+
 
 # Create your views here.
 
@@ -64,6 +68,20 @@ def global_charts(request):
     chart = flot.LineChart(SimpleDataSource(data=data), html_id="line_chart")
     
     return render(request, 'access/global_charts.html', {'chart': chart } )
+    
+    
+    
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            return HttpResponseRedirect("/")
+    else:
+        form = UserCreationForm()
+    return render(request, "registration/register.html", {
+        'form': form,
+    })
     
     
     
