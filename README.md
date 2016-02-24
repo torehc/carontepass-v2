@@ -20,7 +20,7 @@ CarontePass is an access control designed for collaborative spaces where there i
 
 > - Proyecto actuamente en desarrollo.
 > - A partir de Noviembre 2015 los cambios realizados serÃ¡n valorados para el [Consurso Universitario de Software Libre 2016.](https://www.concursosoftwarelibre.org)
-> -  Estudiante universitario (sin tiempo ni â‚¬)
+> -  Estudiante universitario (sin tiempo ni €)
 
 ----------
 How does it work?:
@@ -29,7 +29,10 @@ The project is based on a **client-server structure**, where you have a single s
 
 Clients connect to wifi and establish communication through a REST API made with ***Django*** and ***Django REST framework*** that is in the server. As it is a very delicate service the idea is not to have the server on the Internet but in the local area.
 
+The system creates a URL with the tag received by the reader and asks the server. Checks whether the tag has a user and if you have access permissions (as can be if the current monthly payments) to activate the relay which opens the door.
+
 As a client there is a Raspberry has a **relay** that opens an electronic lock a **reader NFC model RC522**.
+Development version: ESP8266 with RC522(rfid/nfc) reader.
 
 Support bots Telegram: When entering the first person into space in a group alerts Telegram which is open and equal to leave.
 
@@ -51,4 +54,5 @@ Technology used:
  - Django 1.9
  - Django REST framework
  - Bootstrap with AdminLTE theme
- (Read more at the requirements.txt)
+ - PyTelegramBotAPI
+ (Read more at the web/carontepass/requirements.txt)
