@@ -1,8 +1,36 @@
 #include <ESP8266WiFi.h>
-#include <ArduinoJson.h> //TODO
 #include "MFRC522.h"
-#define RST_PIN 16 // RST-PIN for RC522 - RFID - SPI - Modul GPIO16 
-#define SS_PIN  15  // SDA-PIN for RC522 - RFID - SPI - Modul GPI15 
+
+/*
+ * PINOUT
+ * +--------------------------------+---------------+
+ * | WEMOS D1 ESP8266 BOARD         | CONECT TO PIN |
+ * +--------------------------------+---------------+
+ * | PIN  | FUCTION  | ESP-8266 PIN | RC522 | RELAY |
+ * +------+----------+--------------+-------+-------+
+ * | 3.3V | POWER    | 3.3V         | 3.3V  |       |
+ * +------+----------+--------------+-------+-------+
+ * | 5V   | POWER    | 5V           |       | VCC   |
+ * +------+----------+--------------+-------+-------+
+ * | GND  | GND      | GND          | GND   | GND   |
+ * +------+----------+--------------+-------+-------+
+ * | D13  | SCK      | GPIO-14      | SCK   |       |
+ * +------+----------+--------------+-------+       +
+ * | D12  | MISO     | GPIO-12      | MISO  |       |
+ * +------+----------+--------------+-------+       +
+ * | D11  | MOSI     | GPIO-13      | MOSI  |       |
+ * +------+----------+--------------+-------+       +
+ * | D10  | SS (SDA) | GPIO-15      | SDA   |       |
+ * +------+----------+--------------+-------+       +
+ * | D8   | IO       | GPIO-0       | RESET |       |
+ * +------+----------+--------------+-------+-------+
+ * | D2   | IO       | GPIO-16      |       | IN1   |
+ * +------+----------+--------------+-------+-------+
+ */
+
+#define RST_PIN 0 // RST-PIN for RC522 - RFID - SPI - Module GPIO-0 
+#define SS_PIN  15  // SDA-PIN for RC522 - RFID - SPI - Module GPIO-15
+#define RELAY_PIN 16 // RELAY-PIN in GPI0-16
 
 const char* ssid     = "your-ssid";
 const char* password = "your-password";
@@ -31,7 +59,8 @@ void dump_byte_array(byte *buffer, byte bufferSize) {
 }
 
 void setup() {
-  
+
+  pinMode(RELAY_PIN, OUTPUT);
   // Initialize serial communications
   Serial.begin(115200);
   delay(10);
@@ -68,10 +97,12 @@ void loop() {
     return;
   }
   // Show some details of the PICC (that is: the tag/card)
+  Serial.println("RFID Tag Detected...");
   Serial.print(F("Card UID:"));
   dump_byte_array(mfrc522.uid.uidByte, mfrc522.uid.size);
   Serial.println();
 
+  Serial.println();
   Serial.print("connecting to ");
   Serial.println(host);
   
@@ -98,33 +129,41 @@ void loop() {
   
   // This will send the request to the server
   client.println(
-    String("GET ") + url + " HTTP/1.1\r\n" + 
+    String("GET ") + url + " HTTP/1.1\r\n" +
     "Host: " + host + "\r\n" + "Authorization: Basic " + userpass + "\r\n" + 
     "Connection: close\r\n\r\n");
                
   delay(10);
   
   // Read all the lines of the reply from server and print them to Serial
-  
-  while(client.available()){
-    String line = client.readStringUntil('\r');
-    Serial.print(line);
+  while (client.connected()) {
+    String response = client.readStringUntil('\n');
+    if (response == "\r") {
+      Serial.println("Headers Received:");
+      break;
+    }
   }
-   
-  /*
-      StaticJsonBuffer<200> jsonBuffer;
-      
-      JsonObject& root = jsonBuffer.parseObject(c);
-      
-      int id_device = root["id"];
-      int id_user = root["user"];
-      const char* tag_type = root["kind"];
-      const char* tag_code = root["code"];
-      const char* result = root["result"];
-*/
-  
+  String response = client.readStringUntil('\n');
+  Serial.println(response);
+
+  if (response.indexOf("true") >= 0 )
+  {
+    Serial.println("Access Granted");
+    digitalWrite(RELAY_PIN, HIGH); //Relay ON
+    Serial.println("Relay Activated");
+    delay(10);
+    digitalWrite(RELAY_PIN, LOW); //Relay OFF
+   }
+   else if (response.indexOf("null") >= 0 )
+   {
+    Serial.println("Access Unidentified");
+   }
+   else{
+      Serial.println("False");
+    }
   Serial.println();
   Serial.println("closing connection");
+  Serial.println();
 
   delay(5000);
   
