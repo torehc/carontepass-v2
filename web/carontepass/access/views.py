@@ -3,7 +3,6 @@ from rest_framework import generics
 from .models import Device, Log
 from .serializers import DeviceResultSerializer
 from django.contrib.auth.models import User
-from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
@@ -35,12 +34,6 @@ def homepage(request):
     users_count = User.objects.count()
     users_in_count = Log.listUsersCount()
     return render(request, 'access/index.html', {'users_count': users_count, 'users_in_count': users_in_count})
-    
-
-@login_required(login_url='/')    
-def logout_view(request):
-    logout(request)
-    return HttpResponseRedirect('/')
 
 
 @login_required(login_url='/')
@@ -58,7 +51,7 @@ def device_info(request):
 def global_charts(request):
     
     qs = Log.objects.all()
-    week = [qs.filter(ts_input__week_day=i).count() for i in range(6)]
+    week = [qs.filter(ts_input__week_day=i).count() for i in range(7)]
 
     data =  [
         ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],

@@ -17,7 +17,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 from access.viewsets import UserViewSet, DeviceViewSet
-from access.views import DeviceIDList, homepage, logout_view, personal_info, device_info, global_charts, register
+from access.views import DeviceIDList, homepage, personal_info, device_info, global_charts, register
+from django.contrib.auth.views import login, logout
 
 router = DefaultRouter()
 router.register(r'user', UserViewSet)
@@ -36,12 +37,11 @@ urlpatterns = [
     url(r'^charts$', global_charts , name='gobal_charts'),
     url(r'^registration$', register , name='register'),
     url(
-        r'^$',
-        'django.contrib.auth.views.login',
+        r'^$', login,
         name='login',
     ),
     url(r'^logout/$',
-        logout_view,
+        logout,
         name='logout',
     ),
 ]
