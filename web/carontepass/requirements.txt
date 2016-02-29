@@ -7,3 +7,4 @@ django-admin-bootstrapped
 django-extensions
 django-bootstrap3
 django-graphos
+ndg-httpsclient
