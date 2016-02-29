@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from access.models import Message, Payment, Device, Log
+from access.models import Message, Payment, Device, Log, Telegram
 
 
 class DeviceAdmin(admin.ModelAdmin): 
@@ -24,6 +24,10 @@ class PaymentAdmin(admin.ModelAdmin):
 class MessageAdmin(admin.ModelAdmin): 
   list_display = ('rol', 'text')
   list_filter = ('rol',)
+  
+class TelegramAdmin(admin.ModelAdmin): 
+  list_display = ('user', 'chatid') 
+  search_fields = ('user', 'chatid') 
 
 
 # Register your models here.
@@ -31,3 +35,4 @@ admin.site.register(Message, MessageAdmin)
 admin.site.register(Payment, PaymentAdmin)
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(Log, LogAdmin)
+admin.site.register(Telegram, TelegramAdmin)

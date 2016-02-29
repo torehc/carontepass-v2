@@ -2,7 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
-from telegram_group import send_group_msg
+from telegram_group import send_group_msg, send_simple_msg
 
 
 # Create your models here.
@@ -120,6 +120,32 @@ class Message(models.Model):
                                       default=INFO,
                                       blank=False,
                                       )
+                                    
+    @staticmethod 
+    def message_detect_tag(Device):
+
+        #If the user has assigned chatid sends message to the telegram
+        if Telegram.objects.filter(user=Device.user).count() > 0:
+            
+            chatid = Telegram.objects.filter(user=Device.user).first().chatid
+        
+            if Log.objects.filter(user=Device.user, user_in=True).last():
+                #welcome message, select random message
+                text = Message.objects.filter(rol="Input").order_by('?').first().text
+                text += ", " + Device.user.first_name + "."
+                
+            else:
+                #goodbye message, select random message
+                text = Message.objects.filter(rol="Output").order_by('?').first().text
+                text += ", " + Device.user.first_name + "."
+                
+                
+            send_simple_msg(chatid, text)  
+    
+    
+    def __str__(self):
+        return '{}: {}'.format(self.rol, self.text)
+    
 
 
 class Payment(models.Model):
@@ -133,4 +159,16 @@ class Payment(models.Model):
     
     def __str__(self):
         return '{}: {} - {}'.format(self.user, self.amount, self.f_payment)
+ 
+        
+class Telegram(models.Model):
+    __tablename__ = 'cp_telegram'
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    chatid = models.DecimalField(max_digits=12, decimal_places=0)
+    
+    def __str__(self):
+        return 'Telegram {}: {}'.format(self.user, self.chatid)
+    
+    
         

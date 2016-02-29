@@ -15,9 +15,9 @@ IDchatReceiver = ID_CHAT_RECEIVER
 tb = telebot.TeleBot(TOKEN_BOT)
 
 
-def send_simple_msg(message):
+def send_simple_msg(chatid, message):
   
-    tb.send_message(IDchatReceiver, message)
+    tb.send_message(chatid, message)
 
   
 def send_group_msg(SiteOpen, user_name):
