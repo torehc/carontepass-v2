@@ -44,7 +44,8 @@ def command_start(m):
         knownUsers.append(cid)  # save user id, so you could brodcast messages to all users of this bot later
         userStep[cid] = 0  # save user id and his current "command level", so he can use the "/getImage" command
         bot.send_message(cid, "Hello, stranger, let me scan you...")
-        bot.send_message(cid, "Scanning complete, I know you now")
+        msg = "Scanning complete, I know you now. Chatid: " + str(cid)
+        bot.send_message(cid, msg)
         command_help(m)  # show the new user the help page
     else:
         bot.send_message(cid, "I already know you, no need for me to scan you again!")

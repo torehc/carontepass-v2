@@ -43,16 +43,22 @@ Support bots Telegram: When entering the first person into space in a group aler
 [Wiki](http://wiki.kreitek.org/proyectos:control_acceso)
 [Blog](https://carontepass.wordpress.com/)
 
+**Web Panel:**
 ![Login Page](https://carontepass.files.wordpress.com/2016/02/captura-de-pantalla-2016-02-15-14-02-56.png?w=775)
 ![User Panel](https://carontepass.files.wordpress.com/2016/02/captura-de-pantalla-2016-02-15-14-02-46.png)
-![Database Model](https://carontepass.files.wordpress.com/2016/02/mis_modelos2.png)
+
+**Django DataBase:**
+![Database Model](https://carontepass.files.wordpress.com/2016/03/my_models3.png)
+
+**Integration with Telegram Bot:**
+![Telegram Bot](https://carontepass.files.wordpress.com/2016/02/captura-de-pantalla-2016-02-29-22-52-02.png)
 
 Technology used:
 -------------
 
  - Python
  - Django 1.9
- - Django REST framework
+ - Dango REST framework
  - Bootstrap with AdminLTE theme
  - PyTelegramBotAPI
  (Read more at the web/carontepass/requirements.txt)

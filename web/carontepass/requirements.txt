@@ -8,3 +8,4 @@ django-extensions
 django-bootstrap3
 django-graphos
 ndg-httpsclient
+PySocks
