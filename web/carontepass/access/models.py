@@ -91,7 +91,7 @@ class Log(models.Model):
         users = Log.objects.filter(user_in=True).all()
           
         users_in_msg = 'People here are: {}'.format(
-	  	', '.join([str(users[i].user.first_name) for i in range(len(users))])
+	  	', '.join([str(users[i].user.username) for i in range(len(users))])
 	 	 )
             
         return users_in_msg

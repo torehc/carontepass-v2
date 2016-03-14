@@ -108,7 +108,7 @@ void loop() {
   
   // Use WiFiClient class to create TCP connections
   WiFiClient client;
-  const int httpPort = 8000;
+  const int httpPort = 80;
   if (!client.connect(host, httpPort)) {
     Serial.println("connection failed");
     return;
@@ -135,32 +135,49 @@ void loop() {
                
   delay(10);
   
+  /*
   // Read all the lines of the reply from server and print them to Serial
   while (client.connected()) {
     String response = client.readStringUntil('\n');
     if (response == "\r") {
-      Serial.println("Headers Received:");
+      Serial.print("Headers Received: ");
       break;
     }
   }
   String response = client.readStringUntil('\n');
   Serial.println(response);
+  */
+  
+  while(client.connected()){
+    
+    String line = client.readStringUntil('\r');
+    //Serial.println(line);
+    String result = line.substring(1,2);
+    
+    if (result=="[") //detects the beginning of the string json
+    {
+      Serial.print("Response: ");
+      Serial.println(line);
 
-  if (response.indexOf("true") >= 0 )
-  {
-    Serial.println("Access Granted");
-    digitalWrite(RELAY_PIN, HIGH); //Relay ON
-    Serial.println("Relay Activated");
-    delay(10);
-    digitalWrite(RELAY_PIN, LOW); //Relay OFF
-   }
-   else if (response.indexOf("null") >= 0 )
-   {
-    Serial.println("Access Unidentified");
-   }
-   else{
-      Serial.println("False");
+      if (line.indexOf("true") >= 0 )
+      {
+        Serial.println("Access Granted");
+        digitalWrite(RELAY_PIN, HIGH); //Relay ON
+        Serial.println("Relay Activated");
+        delay(1500);
+        digitalWrite(RELAY_PIN, LOW); //Relay OFF
+       }
+       else if (line.indexOf("null") >= 0 )
+       {
+        Serial.println("Access Unidentified");
+       }
+       else{
+          Serial.println("False");
+        }
     }
+    
+  }
+  
   Serial.println();
   Serial.println("closing connection");
   Serial.println();
