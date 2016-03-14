@@ -22,18 +22,15 @@ knownUsers = []  # todo: save these in a file,
 userStep = {}  # so they won't reset every time the bot restarts
 
 # only used for console output now
-def listener(messages):
-    """
-    When new messages arrive TeleBot will call this function.
-    """
-    for m in messages:
-        if m.content_type == 'text':
+#def listener(messages):
+   # for m in messages:
+       # if m.content_type == 'text':
             # print the sent message to the console
-            print str(m.chat.first_name) + " [" + str(m.chat.id) + "]: " + m.text
+            #print str(m.chat.first_name).encode('utf-8') + " [" + str(m.chat.id).encode('utf-8') + "]: " + m.text
             
 
 bot = telebot.TeleBot(TOKEN_BOT)
-bot.set_update_listener(listener)  # register listener
+#bot.set_update_listener(listener)  # register listener
 
 
 # handle the "/start" command
