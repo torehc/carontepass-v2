@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from carontepass.settings import VALUE_PAYMENT_TRUE, MAX_GRANTED_DAYS
+from carontepass.settings_local import VALUE_PAYMENT_TRUE, MAX_GRANTED_DAYS
 from .models import Device, Payment, Log, Message
 import datetime
 from django.contrib.auth.models import User

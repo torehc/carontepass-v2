@@ -5,7 +5,7 @@ import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "carontepass.settings")
 import django
 django.setup()
-from carontepass.settings import TOKEN_BOT
+from carontepass.settings_local import TOKEN_BOT
 from access.models import Log
 
 

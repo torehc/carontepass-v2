@@ -2,7 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
-from telegram_group import send_group_msg, send_simple_msg
+from telegram_group import send_group_msg, send_simple_msg, send_log_msg
 
 
 # Create your models here.
@@ -63,18 +63,21 @@ class Log(models.Model):
         if not log_obj:
 
             log_create = Log.objects.create(user=Device.user, ts_input=date, ts_output=date, user_in=True)
-            #return '{}: Go In'.format(device_obj.user)
+            send_log_msg(True, str(Device.user.username))
+            
             
         elif(log_obj.ts_input.strftime('%d/%m/%y-%H:%M') == log_obj.ts_output.strftime('%d/%m/%y-%H:%M')):
                     
             log_obj.ts_output = datetime.datetime.now()
             log_obj.user_in = False
             log_obj.save()
-            #return '{}: Go Out'.format(device_obj.user)
+            send_log_msg(False, str(Device.user.username))
+            
 
         else:
             log_create = Log.objects.create(user=Device.user, ts_input=date, ts_output=date, user_in=True)    
-            #return '{}: Go In'.format(device_obj.user)
+            send_log_msg(True, str(Device.user.username))
+            
      
         log_user_in_end = len(Log.objects.filter(user_in=True).all())
         
@@ -88,12 +91,17 @@ class Log(models.Model):
             
     @staticmethod   
     def listUsersInside():
+        
         users = Log.objects.filter(user_in=True).all()
-          
-        users_in_msg = 'People here are: {}'.format(
-	  	', '.join([str(users[i].user.username) for i in range(len(users))])
-	 	 )
-            
+        
+        if users:
+            users_in_msg = 'People here are: {}'.format(
+    	  	', '.join([str(users[i].user.username) for i in range(len(users))])
+    	 	 )
+    	else:
+    	     users_in_msg = 'Nobody inside'
+                
+        
         return users_in_msg
 
 
