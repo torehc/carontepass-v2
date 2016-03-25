@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
-from graphos.renderers import flot
+from graphos.renderers import flot, gchart
 from graphos.sources.simple import SimpleDataSource
 
 from django import forms
@@ -52,17 +52,20 @@ def global_charts(request):
     
     qs = Log.objects.all()
     week = [qs.filter(ts_input__week_day=i).count() for i in range(7)]
-
+    
     data =  [
         ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
         week
     ]
+    
 
-    chart = flot.LineChart(SimpleDataSource(data=data), html_id="line_chart")
+    #data_source = ModelDataSource(queryset, fields=['year', 'sales'])
+
+    chart = gchart.ColumnChart(SimpleDataSource(data=data), html_id="line_chart")
     
     return render(request, 'access/global_charts.html', {'chart': chart } )
     
-    
+            
     
 def register(request):
     if request.method == 'POST':

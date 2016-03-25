@@ -27,8 +27,14 @@
 
 
 {% block body %}
+<script src="{% static 'plugins/jQuery/jQuery-2.1.4.min.js' %}"></script>
+<script src="{% static 'plugins/flot/jquery.flot.js' %}"></script>
 
-hola
-{{ line_chart.as_html }}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+</script>
+
+{{ chart.as_html }}
 
 {% endblock body %}

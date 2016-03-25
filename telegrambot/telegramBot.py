@@ -85,6 +85,6 @@ def command_open(m):
 
 
 
-bot.polling()
+bot.polling(none_stop=True)
 
 

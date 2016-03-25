@@ -14,7 +14,7 @@ SECRET_KEY = '!3x^b9m+h)@_pog5l+(8bf-8vq(ey_n6m=qn5qcx@)xttu0@fi'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'access',
     'commons',
+    'graphos',
 )
 
 MIDDLEWARE_CLASSES = (

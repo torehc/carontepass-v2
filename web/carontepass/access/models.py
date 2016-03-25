@@ -95,7 +95,7 @@ class Log(models.Model):
         users = Log.objects.filter(user_in=True).all()
         
         if users:
-            users_in_msg = 'People here are: {}'.format(
+            users_in_msg = 'People registered here are: {}'.format(
     	  	', '.join([str(users[i].user.username) for i in range(len(users))])
     	 	 )
     	else:
