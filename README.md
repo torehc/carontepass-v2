@@ -36,22 +36,42 @@ Development version: ESP8266 with RC522(rfid/nfc) reader.
 
 Support bots Telegram: When entering the first person into space in a group alerts Telegram which is open and equal to leave.
 
-
 ----------
 ## Documentation:
-(In Spanish at the moment)
-[Wiki](http://wiki.kreitek.org/proyectos:control_acceso)
+In Spanish:
 [Blog](https://carontepass.wordpress.com/)
+[Wiki](http://wiki.kreitek.org/proyectos:control_acceso)
+In English:
+[Hackaday.io](https://hackaday.io/project/10498-carontepass-open-access-control)
+
+**Hardware:**
+
+Client **(~10$)**:
+![Esp8266](https://carontepass.files.wordpress.com/2016/03/img_20160314_175633.jpg?w=1200&h=800&crop=1)
+![Esp8266 2](https://carontepass.files.wordpress.com/2016/02/img_20160225_154953_1456415420772.jpg?w=768&h=720&crop=1)
+Server:
+![RaspberryPi2](https://carontepass.files.wordpress.com/2016/02/img_20160217_161454.jpg?w=1200&h=800&crop=1)
+
+**Hardware Scheme:**
+![Fritzing](https://carontepass.files.wordpress.com/2016/03/carontepass-rc522.png?w=1024&h=793)
+
 
 **Web Panel:**
 ![Login Page](https://carontepass.files.wordpress.com/2016/02/captura-de-pantalla-2016-02-15-14-02-56.png?w=775)
 ![User Panel](https://carontepass.files.wordpress.com/2016/02/captura-de-pantalla-2016-02-15-14-02-46.png)
+
+
+**Admin Web Panel:**
+![Admin Page](https://carontepass.files.wordpress.com/2016/03/django-admin.jpg?w=1024&h=562)
+![Admin Log Page](https://carontepass.files.wordpress.com/2016/03/django-admin-log.png?w=1024&h=533)
 
 **Django DataBase:**
 ![Database Model](https://carontepass.files.wordpress.com/2016/03/my_models3.png)
 
 **Integration with Telegram Bot:**
 ![Telegram Bot](https://carontepass.files.wordpress.com/2016/02/captura-de-pantalla-2016-02-29-22-52-02.png)
+
+
 
 Technology used:
 -------------
@@ -61,4 +81,5 @@ Technology used:
  - Dango REST framework
  - Bootstrap with AdminLTE theme
  - PyTelegramBotAPI
+ - ESP8266 core for Arduino
  (Read more at the web/carontepass/requirements.txt)
