@@ -31,6 +31,6 @@ def send_group_msg(SiteOpen, user_name):
 def send_log_msg(User_In, user_name):
 
     if User_In == True:
-      tb.send_message(ID_GROUP_LOG_RECEIVER, user_name+" has entered in the building" )
+      tb.send_message(ID_GROUP_LOG_RECEIVER, user_name+" has entered the building." )
     else:
-      tb.send_message(ID_GROUP_LOG_RECEIVER, user_name+" has left the building" )
+      tb.send_message(ID_GROUP_LOG_RECEIVER, user_name+" has left the building." )

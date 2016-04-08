@@ -66,7 +66,7 @@ class Log(models.Model):
             send_log_msg(True, str(Device.user.username))
             
             
-        elif(log_obj.ts_input.strftime('%d/%m/%y-%H:%M') == log_obj.ts_output.strftime('%d/%m/%y-%H:%M')):
+        elif(log_obj.user_in == True):
                     
             log_obj.ts_output = datetime.datetime.now()
             log_obj.user_in = False
