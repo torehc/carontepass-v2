@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 from telegram_group import send_group_msg, send_simple_msg, send_log_msg
-
+from carontepass.settings_local import TOKEN_IBOARDBOT
 
 # Create your models here.
 
@@ -146,6 +146,12 @@ class Message(models.Model):
                 #welcome message, select random message
                 text = Message.objects.filter(rol="Input").order_by('?').first().text
                 text += ", " + Device.user.first_name + "."
+                #import pdb; pdb.set_trace()
+                #Send message to iBoardbot
+                username = Device.user.username
+                Message.iboardbot_send(username)
+                
+                
                 
             else:
                 #goodbye message, select random message
@@ -154,6 +160,24 @@ class Message(models.Model):
                 
                 
             send_simple_msg(chatid, text)  
+            
+    @staticmethod 
+    def iboardbot_send(username):
+        import urllib3
+        http = urllib3.PoolManager()
+        
+        urltext = "http://ibbapp.jjrobots.com/api/v1/text.php?APPID="
+        urlclear = "http://ibbapp.jjrobots.com/api/v1/clear.php?APPID="
+        
+        url2= "&TEXT="
+        text = "Hola%20"
+        url = urltext+TOKEN_IBOARDBOT +url2+text+username
+        r = http.request('GET', url)
+        
+        url = urlclear+TOKEN_IBOARDBOT 
+        r = http.request('GET', url)
+        
+        
     
     
     def __str__(self):
