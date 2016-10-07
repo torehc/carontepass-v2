@@ -136,6 +136,12 @@ class Message(models.Model):
                                     
     @staticmethod 
     def message_detect_tag(Device):
+        
+        #Send message to iBoardbot
+        if Log.objects.filter(user=Device.user, user_in=True).last():
+        #username = Device.user.username
+            Message.iboardbot_send(2,Device.user.username)
+            
 
         #If the user has assigned chatid sends message to the telegram
         if Telegram.objects.filter(user=Device.user).count() > 0:
@@ -146,12 +152,6 @@ class Message(models.Model):
                 #welcome message, select random message
                 text = Message.objects.filter(rol="Input").order_by('?').first().text
                 text += ", " + Device.user.first_name + "."
-                #import pdb; pdb.set_trace()
-                #Send message to iBoardbot
-                username = Device.user.username
-                Message.iboardbot_send(username)
-                
-                
                 
             else:
                 #goodbye message, select random message
@@ -162,21 +162,31 @@ class Message(models.Model):
             send_simple_msg(chatid, text)  
             
     @staticmethod 
-    def iboardbot_send(username):
+    def iboardbot_send(mode, username):
+        
         import urllib3
         http = urllib3.PoolManager()
         
-        urltext = "http://ibbapp.jjrobots.com/api/v1/text.php?APPID="
-        urlclear = "http://ibbapp.jjrobots.com/api/v1/clear.php?APPID="
+        if( mode == 1): #mode send text
+            mode = "text"
+        elif (mode ==2): #mode clear board and send text
+            mode = "message"
         
-        url2= "&TEXT="
+        urltext = "http://ibbapp.jjrobots.com/api/v1/"+mode+".php?APPID="+TOKEN_IBOARDBOT+"&TEXT="
         text = "Hola%20"
-        url = urltext+TOKEN_IBOARDBOT +url2+text+username
+        
+        url = urltext+text+username
         r = http.request('GET', url)
         
-        url = urlclear+TOKEN_IBOARDBOT 
-        r = http.request('GET', url)
         
+    @staticmethod 
+    def iboardbot_clear(): #clear board
+        
+        import urllib3
+        http = urllib3.PoolManager()
+        
+        url = "http://ibbapp.jjrobots.com/api/v1/clear.php?APPID="+TOKEN_IBOARDBOT
+        r = http.request('GET', url)
         
     
     
@@ -203,6 +213,13 @@ class Telegram(models.Model):
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     chatid = models.DecimalField(max_digits=12, decimal_places=0)
+    
+    @staticmethod 
+    def check_user(chatid):
+        if(Telegram.objects.filter(chatid=chatid)):
+            return True
+        else:
+            return False
     
     def __str__(self):
         return 'Telegram {}: {}'.format(self.user, self.chatid)
