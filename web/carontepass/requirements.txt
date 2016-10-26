@@ -1,5 +1,4 @@
 Django==1.9.2
-django-debug-toolbar
 djangorestframework
 urllib3
 pyTelegramBotAPI
