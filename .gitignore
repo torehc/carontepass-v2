@@ -1,2 +1,5 @@
+static*
+*.pyc
 *.pyv
 *.sqlite3
+*.py.save
