@@ -10,3 +10,9 @@ ID_GROUP_LOG_RECEIVER = 'xxxxxxxxxxx'
 
 #iBoardbot token APPID
 TOKEN_IBOARDBOT = 'xxxxxxxxxxx'
+
+#Domoticz variables
+DOMOTICZ_LOCALIP = 'xxxxxxxxxxx'
+DOMOTICZ_IDX = 'xxxxxxxxxxx'
+DOMOTICZ_USUER = 'xxxxxxxxxxx'
+DOMOTICZ_PASS = 'xxxxxxxxxxx'
