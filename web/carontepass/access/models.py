@@ -52,16 +52,17 @@ class Log(models.Model):
     def __str__(self):
         return 'Log {}: {} - {}'.format(self.user, self.ts_input, self.ts_output)
     
-    def __domoticz_armed(self, armed='On'):
-        # Domoticz armed Security
-        http = urllib3.PoolManager()
-        url = 'http://'+DOMOTICZ_LOCALIP+'/json.htm?type=command&param=switchlight&idx='+DOMOTICZ_IDX+'&switchcmd='
-        headers = urllib3.util.make_headers(basic_auth=DOMOTICZ_USUER+':'+DOMOTICZ_PASS)
-        r = http.request('GET', url+armed, headers=headers)
-    
+   
     @staticmethod   
     def checkentryLog(Device):
 
+        def domoticz_armed(armed='On'):
+            # Domoticz armed Security
+            http = urllib3.PoolManager()
+            url = 'http://'+DOMOTICZ_LOCALIP+'/json.htm?type=command&param=switchlight&idx='+DOMOTICZ_IDX+'&switchcmd='
+            headers = urllib3.util.make_headers(basic_auth=DOMOTICZ_USUER+':'+DOMOTICZ_PASS)
+            r = http.request('GET', url+armed, headers=headers)
+ 
         date = datetime.datetime.now()
 
         log_obj = Log.objects.filter(user=Device.user).last()
@@ -72,9 +73,6 @@ class Log(models.Model):
 
             log_create = Log.objects.create(user=Device.user, ts_input=date, ts_output=date, user_in=True)
             send_log_msg(True, str(Device.user.username))
-            # Domoticz armed Security
-            __domoticz_armed('On')
-            
             
         elif(log_obj.user_in == True):
                     
@@ -82,25 +80,23 @@ class Log(models.Model):
             log_obj.user_in = False
             log_obj.save()
             send_log_msg(False, str(Device.user.username))
-            # Domoticz disarmed Security
-            __domoticz_armed('Off')
-            
 
         else:
             log_create = Log.objects.create(user=Device.user, ts_input=date, ts_output=date, user_in=True)    
             send_log_msg(True, str(Device.user.username))
-            # Domoticz armed Security
-            __domoticz_armed('On')
-            
      
         log_user_in_end = len(Log.objects.filter(user_in=True).all())
         
         
         if(log_user_in_initial == 0 and log_user_in_end == 1):
             send_group_msg(True, str(Device.user.username))
+            # Site domoticz state On
+            domoticz_armed('On')
             
         elif(log_user_in_initial == 1 and log_user_in_end == 0):
             send_group_msg(False, str(Device.user.username))
+            # Site domoticz state Off
+            domoticz_armed('Off')
            
             
     @staticmethod   
