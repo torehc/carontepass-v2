@@ -6,6 +6,7 @@ from telegram_group import send_group_msg, send_simple_msg, send_log_msg
 from carontepass.settings_local import TOKEN_IBOARDBOT, DOMOTICZ_LOCALIP, DOMOTICZ_IDX, DOMOTICZ_USUER, DOMOTICZ_PASS
 import urllib3
 
+
 # Create your models here.
 
 class Device(models.Model):
@@ -153,7 +154,12 @@ class Message(models.Model):
             Message.iboardbot_send(2,Device.user.username)
             
 
-        #If the user has assigned chatid sends message to the telegram
+	#Send message to iBoardbot
+        if Log.objects.filter(user=Device.user, user_in=True).last():
+        #username = Device.user.username
+            Message.iboardbot_send(2,Device.user.username)
+       
+	 #If the user has assigned chatid sends message to the telegram
         if Telegram.objects.filter(user=Device.user).count() > 0:
             
             chatid = Telegram.objects.filter(user=Device.user).first().chatid
@@ -162,7 +168,7 @@ class Message(models.Model):
                 #welcome message, select random message
                 text = Message.objects.filter(rol="Input").order_by('?').first().text
                 text += ", " + Device.user.first_name + "."
-                
+               
             else:
                 #goodbye message, select random message
                 text = Message.objects.filter(rol="Output").order_by('?').first().text
@@ -171,6 +177,7 @@ class Message(models.Model):
                 
             send_simple_msg(chatid, text)  
             
+
     @staticmethod 
     def iboardbot_send(mode, username):
         
