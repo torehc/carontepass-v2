@@ -1,2 +1,6 @@
 *.pyv
 *.sqlite3
+*settings_local.py
+*.pyc
+*.py.save
+*static*
