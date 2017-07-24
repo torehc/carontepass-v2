@@ -41,6 +41,7 @@ class DeviceResultSerializer(serializers.ModelSerializer):
                 
                 Log.checkentryLog(Device)
                 Message.message_detect_tag(Device)
+                
                 return True;
                 
     class Meta:

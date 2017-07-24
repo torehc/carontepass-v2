@@ -1,4 +1,9 @@
+static*
+*.pyc
 *.pyv
 *.sqlite3
 tests/.cache
 tests/__cache__
+*settings_local.py
+*.pyc
+*.py.save
