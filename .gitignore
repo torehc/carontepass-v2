@@ -1,2 +1,4 @@
 *.pyv
 *.sqlite3
+tests/.cache
+tests/__cache__
