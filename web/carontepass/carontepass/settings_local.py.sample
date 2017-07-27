@@ -16,3 +16,7 @@ DOMOTICZ_LOCALIP = 'xxxxxxxxxxx'
 DOMOTICZ_IDX = 'xxxxxxxxxxx'
 DOMOTICZ_USUER = 'xxxxxxxxxxx'
 DOMOTICZ_PASS = 'xxxxxxxxxxx'
+
+#Monitor Testing Variables
+ESP_IP='xxxxxxxx'
+RASPBERY_IP='xxxxxxx'
