@@ -107,10 +107,10 @@ class Log(models.Model):
         
         if users:
             users_in_msg = 'People registered here are: {}'.format(
-    	  	', '.join([str(users[i].user.username) for i in range(len(users))])
-    	 	 )
-    	else:
-    	     users_in_msg = 'Nobody inside'
+            ', '.join([str(users[i].user.username) for i in range(len(users))])
+             )
+        else:
+             users_in_msg = 'Nobody inside'
                 
         
         return users_in_msg
@@ -154,12 +154,12 @@ class Message(models.Model):
             Message.iboardbot_send(2,Device.user.username)
             
 
-	#Send message to iBoardbot
+    #Send message to iBoardbot
         if Log.objects.filter(user=Device.user, user_in=True).last():
         #username = Device.user.username
             Message.iboardbot_send(2,Device.user.username)
        
-	 #If the user has assigned chatid sends message to the telegram
+     #If the user has assigned chatid sends message to the telegram
         if Telegram.objects.filter(user=Device.user).count() > 0:
             
             chatid = Telegram.objects.filter(user=Device.user).first().chatid
