@@ -1,13 +1,13 @@
 
 from http import client
+import os
+
+
+print(os.getcwd())
 
 import sys
-sys.path.append('../web/carontepass/')
-import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "carontepass.settings")
-import django
-django.setup()
-from carontepass.settings_local import ESP_IP, RASPBERY_IP
+sys.path.append('../')
+from web.carontepass.carontepass.settings_local import ESP_IP, RASPBERY_IP
 
 
 def test_raspberrypi():
@@ -18,5 +18,5 @@ def test_raspberrypi():
 
 def test_caronteclient():
     hostname = ESP_IP
-    response = os.system("ping -c 1 " + hostname + " > /dev/null")
+    response = os.system("ping -c 1 {} > /dev/null".format(hostname))
     assert response == 0
