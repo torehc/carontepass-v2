@@ -1,4 +1,12 @@
 pytest>=3.0.7
 pytest-json>=0.4.0
 Django==1.9.2
+djangorestframework
+urllib3
+pyTelegramBotAPI
 django-admin-bootstrapped
+django-extensions
+django-bootstrap3
+django-graphos
+ndg-httpsclient
+PySocks
