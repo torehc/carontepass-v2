@@ -20,3 +20,4 @@ DOMOTICZ_PASS = 'xxxxxxxxxxx'
 #Monitor Testing Variables
 ESP_IP='xxxxxxxx'
 RASPBERY_IP='xxxxxxx'
+USER_PASS_AUTH='xxxxxxx'
