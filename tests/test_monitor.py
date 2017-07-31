@@ -23,10 +23,9 @@ def test_caronteclient():
 
 def test_caronterest():
     host=RASPBERY_IP
-    url='http://{}/api/1/device/'.format(host)
     userpass=USER_PASS_AUTH
-    h1=client.HTTPConnection(url,80)
+    h1=client.HTTPConnection(host,80)
     headers = { 'Authorization' : 'Basic %s' %  userpass }
-    h1.request('GET', '/', headers=headers)
+    h1.request('GET', '/api/1/device/', headers=headers)
     res=h1.getresponse()
     assert h1.status==200
