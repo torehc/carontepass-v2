@@ -28,4 +28,4 @@ def test_caronterest():
     headers = { 'Authorization' : 'Basic %s' %  userpass }
     h1.request('GET', '/api/1/device/', headers=headers)
     res=h1.getresponse()
-    assert h1.status==200
+    assert res.status==200
