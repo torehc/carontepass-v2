@@ -29,4 +29,4 @@ def test_caronterest():
     headers = { 'Authorization' : 'Basic %s' %  userpass }
     c.request('GET', '/', headers=headers)
     res=c.getresponse()
-    assert c.status=200
+    assert c.status==200
