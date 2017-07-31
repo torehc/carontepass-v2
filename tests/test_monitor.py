@@ -32,9 +32,9 @@ def test_caronterest():
     assert res.status==200
 
 def test_monitorprocess():
-    response= subprocess.call("supervisorctl status telegramBot | sed -r 's/\s+/ /g' - | cut -d' ' -f2")
-    (stdout,stderr)=response.p.communicate()
+    response= subprocess.Popen("supervisorctl", "status", "telegramBot | sed -r 's/\s+/ /g' - | cut -d' ' -f2", stdout=subprocess.PIPE,shell=True)
+    (stdout,stderr)=response.communicate()
     assert stdout=='RUNNING'
-    response= subprocess.call("supervisorctl status carontepass-server | sed -r 's/\s+/ /g' - | cut -d' ' -f2")
-    (stdout,stderr)=response.p.communicate()
+    response= subprocess.Popen("supervisorctl", "status", "carontepass-server | sed -r 's/\s+/ /g' - | cut -d' ' -f2", stdout=subprocess.PIPE,shell=True)
+    (stdout,stderr)=response.communicate()
     assert stdout=='RUNNING'
