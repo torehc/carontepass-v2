@@ -27,6 +27,6 @@ def test_caronterest():
     userpass=USER_PASS_AUTH
     h1=client.HTTPConnection(url,80)
     headers = { 'Authorization' : 'Basic %s' %  userpass }
-    c.request('GET', '/', headers=headers)
-    res=c.getresponse()
-    assert c.status==200
+    h1.request('GET', '/', headers=headers)
+    res=h1.getresponse()
+    assert h1.status==200
