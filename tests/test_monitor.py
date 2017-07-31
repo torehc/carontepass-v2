@@ -1,6 +1,7 @@
 
 from http import client
 import os
+import subprocess
 
 
 print(os.getcwd())
@@ -29,3 +30,11 @@ def test_caronterest():
     h1.request('GET', '/api/1/device/', headers=headers)
     res=h1.getresponse()
     assert res.status==200
+
+def test_monitorprocess():
+    response= subprocess.call("supervisorctl status telegramBot | sed -r 's/\s+/ /g' - | cut -d' ' -f2")
+    (stdout,stderr)=response.p.communicate()
+    assert stdout=='RUNNING'
+    response= subprocess.call("supervisorctl status carontepass-server | sed -r 's/\s+/ /g' - | cut -d' ' -f2")
+    (stdout,stderr)=response.p.communicate()
+    assert stdout=='RUNNING'
