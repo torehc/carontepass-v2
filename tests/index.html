@@ -28,8 +28,9 @@
         $.getJSON(url,function(data){
             console.log(data);
             
-            
+            $('#rowtests').html('');
             $('#hour').html(data.report.created_at);
+
             $.each(data.report.tests,function(index,element){
                 if(element.outcome == 'passed')
                     clase='label-success';
