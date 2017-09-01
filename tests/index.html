@@ -1,0 +1,48 @@
+<html lang="es">
+<head>
+    <style>
+        .test{
+            margin: 5px;
+        }
+    </style>
+<title>Kreitek Monitor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body onload="setInterval(getmonitor(),600000)">
+    <h1>Kreitek Monitor System<small id="hour" class="test"></small></h1>
+
+<div class="container-fluid">
+<div class="row" id="rowtests">
+   
+    
+    
+   
+</div>
+</div>
+<script lang="javascript">
+    function getmonitor(){
+        url='/monitor/report.json';
+        $.getJSON(url,function(data){
+            console.log(data);
+            
+            $('#rowtests').html('');
+            $('#hour').html(data.report.created_at);
+
+            $.each(data.report.tests,function(index,element){
+                if(element.outcome == 'passed')
+                    clase='label-success';
+                else
+                    clase='label-danger';
+                $('#rowtests').append(" <div class='col-md-5'><h1><span class='label "+clase+"'>"+element.name+"</span></h1></div>");
+                
+            });
+        });
+    }    
+</script>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

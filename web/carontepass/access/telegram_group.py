@@ -22,15 +22,15 @@ def send_simple_msg(chatid, message):
 def send_group_msg(SiteOpen, user_name):
   
     if SiteOpen == True:
-      tb.send_message(ID_GROUP_RECEIVER, "Site Open ("+user_name+")" )
+      tb.send_message(ID_GROUP_RECEIVER, "Site Open ({})".format(user_name) )
     else:
-      tb.send_message(ID_GROUP_RECEIVER, "Site Closed ("+user_name+")") 
+      tb.send_message(ID_GROUP_RECEIVER, "Site Closed ({})".format(user_name)) 
       
 
 #Message to telegram group only with entry and exit logs      
 def send_log_msg(User_In, user_name):
 
     if User_In == True:
-      tb.send_message(ID_GROUP_LOG_RECEIVER, user_name+" has entered the building." )
+      tb.send_message(ID_GROUP_LOG_RECEIVER, "{} has entered the building.".format(user_name) )
     else:
-      tb.send_message(ID_GROUP_LOG_RECEIVER, user_name+" has left the building." )
+      tb.send_message(ID_GROUP_LOG_RECEIVER, "{} has left the building.".format(user_name) )

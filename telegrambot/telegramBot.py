@@ -21,6 +21,7 @@ commands = {  # command description used in the "help" command
 knownUsers = []  # todo: save these in a file,
 userStep = {}  # so they won't reset every time the bot restarts
 
+
 # only used for console output now
 #def listener(messages):
    # for m in messages:
@@ -82,7 +83,6 @@ def command_users_in(m):
 def command_open(m):
     cid = m.chat.id
     bot.send_message(cid, "Not implemented") 
-
 
 
 bot.polling(none_stop=True)
